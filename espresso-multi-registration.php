@@ -26,7 +26,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
  */
-define("EVENT_ESPRESSO_MULTI_REG_MODULE_VERSION", '1.0.2');
+define("ESPRESSO_MULTI_REG_VERSION", '1.0.2');
 
 register_activation_hook(__FILE__, 'event_espresso_multi_reg_install');
 register_deactivation_hook(__FILE__, 'event_espresso_multi_reg_deactivate');
@@ -41,10 +41,10 @@ if (is_ssl()) {
 
 
 //define( "EVENT_ESPRESSO_MULTI_REG_TABLE", get_option( $wpdb->prefix . 'events_multi_reg_tbl' ) );
-define("EVENT_ESPRESSO_MULTI_REG_PATH", "/" . plugin_basename(dirname(__FILE__)) . "/");
-define("EVENT_ESPRESSO_MULTI_REG_FULL_PATH", WP_PLUGIN_DIR . EVENT_ESPRESSO_MULTI_REG_PATH);
-define("EVENT_ESPRESSO_MULTI_REG_FULL_URL", $wp_plugin_url . EVENT_ESPRESSO_MULTI_REG_PATH);
-define("EVENT_ESPRESSO_MULTI_REG_MODULE_ACTIVE", TRUE);
+define("ESPRESSO_MULTI_REG_PATH", "/" . plugin_basename(dirname(__FILE__)) . "/");
+define("ESPRESSO_MULTI_REG_FULL_PATH", WP_PLUGIN_DIR . ESPRESSO_MULTI_REG_PATH);
+define("ESPRESSO_MULTI_REG_FULL_URL", $wp_plugin_url . ESPRESSO_MULTI_REG_PATH);
+define("ESPRESSO_MULTI_REG_MODULE_ACTIVE", TRUE);
 
 session_start();
 global $events_in_session;
@@ -52,7 +52,7 @@ if(isset($_SESSION['events_in_session'])) $events_in_session = $_SESSION['events
 
 if (!function_exists('event_espresso_multi_reg_install')) {
     function event_espresso_multi_reg_install() {
-        update_option('event_espresso_multi_reg_version', EVENT_ESPRESSO_MULTI_REG_MODULE_VERSION);
+        update_option('event_espresso_multi_reg_version', ESPRESSO_MULTI_REG_MODULE_VERSION);
         update_option('event_espresso_multi_reg_active', 1);
         global $wpdb;
     }
