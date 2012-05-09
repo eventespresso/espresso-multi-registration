@@ -28,6 +28,27 @@
  */
 define("ESPRESSO_MULTI_REG_VERSION", '1.0.2');
 
+//Update notifications
+add_action('plugins_loaded', 'ee_multiple_load_pue_update');
+function ee_multiple_load_pue_update() {
+	global $org_options, $ee_pue_checkPeriod, $lang_domain, $espresso_check_for_updates;
+	if ( $espresso_check_for_updates == false )
+		return;
+		
+	if (file_exists(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php')) { //include the file 
+		require(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php' );
+		$api_key = $org_options['site_license_key'];
+		$host_server_url = 'http://beta.eventespresso.com';
+		$plugin_slug = 'espresso-multiple';
+		$options = array(
+			'apikey' => $api_key,
+			'lang_domain' => 'event_espresso',
+			'checkPeriod' => $ee_pue_checkPeriod,
+		);
+		$check_for_updates = new PluginUpdateEngineChecker($host_server_url, $plugin_slug, $options); //initiate the class and start the plugin update engine!
+	}
+}
+
 register_activation_hook(__FILE__, 'event_espresso_multi_reg_install');
 register_deactivation_hook(__FILE__, 'event_espresso_multi_reg_deactivate');
 
