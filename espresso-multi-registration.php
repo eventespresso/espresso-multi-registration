@@ -4,7 +4,7 @@
   Plugin URI: http://eventespresso.com/
   Description: Multi Events Registration addon for Event Espresso.
 
-  Version: 1.0.2
+  Version: 1.0.2.B.1
 
   Author: Seth Shoultes
   Author URI: http://www.eventespresso.com
@@ -26,12 +26,12 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
  */
-define("ESPRESSO_MULTI_REG_VERSION", '1.0.2');
+define("ESPRESSO_MULTI_REG_VERSION", '1.0.2.B.1');
 
 //Update notifications
-add_action('plugins_loaded', 'ee_multiple_load_pue_update');
+add_action('action_hook_espresso_multiple_update_api', 'ee_multiple_load_pue_update');
 function ee_multiple_load_pue_update() {
-	global $org_options, $ee_pue_checkPeriod, $lang_domain, $espresso_check_for_updates;
+	global $org_options, $espresso_check_for_updates;
 	if ( $espresso_check_for_updates == false )
 		return;
 		
@@ -43,7 +43,8 @@ function ee_multiple_load_pue_update() {
 		$options = array(
 			'apikey' => $api_key,
 			'lang_domain' => 'event_espresso',
-			'checkPeriod' => $ee_pue_checkPeriod,
+			'checkPeriod' => '24',
+			'option_key' => 'site_license_key'
 		);
 		$check_for_updates = new PluginUpdateEngineChecker($host_server_url, $plugin_slug, $options); //initiate the class and start the plugin update engine!
 	}
