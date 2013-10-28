@@ -92,12 +92,4 @@ if (!function_exists('event_espresso_multi_reg_init')) {
 
     }
 }
-
-require_once(ESPRESSO_MULTI_REG_FULL_PATH . "cart-widget.php");
-
-function load_event_espresso_cart_widget() {
-	do_action('action_hook_espresso_log', __FILE__, __FUNCTION__, '');
-	register_widget('Espresso_CartWidget');
-}
-
-add_action('widgets_init', 'load_event_espresso_cart_widget');
+?>
