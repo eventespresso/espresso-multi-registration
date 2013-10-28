@@ -80,6 +80,7 @@ if(isset($_SESSION['events_in_session'])) $events_in_session = $_SESSION['events
 
 if (!function_exists('event_espresso_multi_reg_install')) {
     function event_espresso_multi_reg_install() {
+		do_action('action_hook_espresso_log', __FILE__, __FUNCTION__, '');
         update_option('event_espresso_multi_reg_version', ESPRESSO_MULTI_REG_VERSION);
         update_option('event_espresso_multi_reg_active', 1);
         global $wpdb;
