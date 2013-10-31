@@ -38,7 +38,7 @@ if (!class_exists('Espresso_CartWidget')) {
 				}
 				echo '</ol>';
 				echo '<br /><p class="widget_cart_total"><strong>Total:</strong> '.$org_options['currency_symbol'].'<span id="event_total_price_widget">'.number_format( $grand_total, 2, '.', '' ).'</span></p>';
-				echo '<p class="widget_cart_link"><a href="'.get_permalink($org_options['event_page_id']).'?regevent_action=show_shopping_cart">View Cart</a> | <a href="/registration-cancelled/">Clear Cart</a></p>';
+				echo '<p class="widget_cart_link"><a href="'.get_permalink($org_options['event_page_id']).'?regevent_action=show_shopping_cart">View Cart</a> | <a href="'.get_permalink($org_options['cancel_return']).'">Clear Cart</a></p>';
 				echo $after_widget;
 		}
 	
