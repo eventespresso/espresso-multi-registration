@@ -4,7 +4,7 @@
   Plugin URI: http://eventespresso.com/
   Description: Multi Events Registration addon for Event Espresso.
 
-  Version: 1.0.4
+  Version: 1.0.5.p
 
   Author: Seth Shoultes
   Author URI: http://www.eventespresso.com
@@ -26,7 +26,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
  */
-define("ESPRESSO_MULTI_REG_VERSION", '1.0.4');
+define("ESPRESSO_MULTI_REG_VERSION", '1.0.5.p');
 
 //Update notifications
 add_action('action_hook_espresso_multiple_update_api', 'ee_multiple_load_pue_update');
@@ -39,13 +39,18 @@ function ee_multiple_load_pue_update() {
 		require(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php' );
 		$api_key = $org_options['site_license_key'];
 		$host_server_url = 'http://eventespresso.com';
-		$plugin_slug = 'espresso-multiple';
+		$plugin_slug = array(
+      'premium' => array('p' => 'espresso-multiple'),
+      'prerelease' => array('b' => 'espresso-multiple-pr')
+      );
 		$options = array(
 			'apikey' => $api_key,
 			'lang_domain' => 'event_espresso',
 			'checkPeriod' => '24',
 			'option_key' => 'site_license_key',
-      'options_page_slug' => 'event-espresso'
+      'options_page_slug' => 'event-espresso',
+      'plugin_basename' => plugin_basename(__FILE__),
+      'use_wp_update' => FALSE, //if TRUE then you want FREE versions of the plugin to be updated from WP
 		);
 		$check_for_updates = new PluginUpdateEngineChecker($host_server_url, $plugin_slug, $options); //initiate the class and start the plugin update engine!
 	}
@@ -75,6 +80,7 @@ if(isset($_SESSION['events_in_session'])) $events_in_session = $_SESSION['events
 
 if (!function_exists('event_espresso_multi_reg_install')) {
     function event_espresso_multi_reg_install() {
+		do_action('action_hook_espresso_log', __FILE__, __FUNCTION__, '');
         update_option('event_espresso_multi_reg_version', ESPRESSO_MULTI_REG_VERSION);
         update_option('event_espresso_multi_reg_active', 1);
         global $wpdb;
@@ -92,4 +98,12 @@ if (!function_exists('event_espresso_multi_reg_init')) {
 
     }
 }
-?>
+
+require_once(ESPRESSO_MULTI_REG_FULL_PATH . "cart-widget.php");
+
+function load_event_espresso_cart_widget() {
+	do_action('action_hook_espresso_log', __FILE__, __FUNCTION__, '');
+	register_widget('Espresso_CartWidget');
+}
+
+add_action('widgets_init', 'load_event_espresso_cart_widget');
